@@ -11,12 +11,12 @@
 // The control pins for the LCD can be assigned to any digital or
 // analog pins...but we'll use the analog pins as this allows us to
 // double up the pins with the touch screen (see the TFT paint example).
-// #define LCD_CS A3 // Chip Select goes to Analog 3
-// #define LCD_CD A2 // Command/Data goes to Analog 2
-// #define LCD_WR A1 // LCD Write goes to Analog 1
-// #define LCD_RD A0 // LCD Read goes to Analog 0
+#define LCD_CS A3 // Chip Select goes to Analog 3
+#define LCD_CD A2 // Command/Data goes to Analog 2
+#define LCD_WR A1 // LCD Write goes to Analog 1
+#define LCD_RD A0 // LCD Read goes to Analog 0
 
-// #define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
+#define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
 
 // When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
 // For the Arduino Uno, Duemilanove, Diecimila, etc.:
@@ -50,8 +50,6 @@ void setup(void) {
   Serial.begin(9600);
   Serial.println(F("TFT LCD test"));
 
-
-
   tft.reset();
 
   uint16_t identifier = tft.readID();
@@ -59,7 +57,7 @@ void setup(void) {
   
     Serial.print(F("LCD driver chip: "));
     Serial.println(identifier, HEX);
-    
+    delay(1000);
 
   tft.begin(identifier);
 
@@ -67,60 +65,60 @@ void setup(void) {
 
   Serial.print(F("Screen fill              "));
   Serial.println(testFillScreen());
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Text                     "));
   Serial.println(testText());
-  delay(3000);
+  delay(5000);
 
   Serial.print(F("Lines                    "));
   Serial.println(testLines(CYAN));
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Horiz/Vert Lines         "));
   Serial.println(testFastLines(RED, BLUE));
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Rectangles (outline)     "));
   Serial.println(testRects(GREEN));
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Rectangles (filled)      "));
   Serial.println(testFilledRects(YELLOW, MAGENTA));
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Circles (filled)         "));
   Serial.println(testFilledCircles(10, MAGENTA));
 
   Serial.print(F("Circles (outline)        "));
   Serial.println(testCircles(10, WHITE));
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Triangles (outline)      "));
   Serial.println(testTriangles());
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Triangles (filled)       "));
   Serial.println(testFilledTriangles());
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Rounded rects (outline)  "));
   Serial.println(testRoundRects());
-  delay(500);
+  delay(1000);
 
   Serial.print(F("Rounded rects (filled)   "));
   Serial.println(testFilledRoundRects());
-  delay(500);
+  delay(1000);
 
   Serial.println(F("Done!"));
 }
 
 void loop(void) {
-  for(uint8_t rotation=0; rotation<4; rotation++) {
-    tft.setRotation(rotation);
+  //for(uint8_t rotation=0; rotation<4; rotation++) {
+    //tft.setRotation(rotation);
     testText();
-    delay(2000);
-  }
+    delay(20000);
+  //}
 }
 
 unsigned long testFillScreen() {
@@ -140,23 +138,23 @@ unsigned long testText() {
   tft.setTextColor(WHITE);  tft.setTextSize(1);
   tft.println("Hello World!");
   tft.setTextColor(YELLOW); tft.setTextSize(2);
-  tft.println(1234.56);
+  tft.println(2015);
   tft.setTextColor(RED);    tft.setTextSize(3);
-  tft.println(0xDEADBEEF, HEX);
+  tft.println(0xABCDEF, HEX);
   tft.println();
   tft.setTextColor(GREEN);
   tft.setTextSize(5);
-  tft.println("Groop");
+  tft.println("Arduino");
+  tft.setTextSize(5);
+  tft.println("   GR");  
   tft.setTextSize(2);
-  tft.println("I implore thee,");
+  tft.println("** arduinogr.com **");
+  tft.println();
   tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  tft.println("And hooptiously drangle me");
-  tft.println("with crinkly bindlewurdles,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");
+  tft.println("Arduino is an open-source electronics");
+  tft.println("platform based on easy-to-use hardware ");
+  tft.println("and software. It's intended for anyone ");
+  tft.println("making interactive projects.");
   return micros() - start;
 }
 
@@ -363,4 +361,3 @@ unsigned long testFilledRoundRects() {
 
   return micros() - start;
 }
-
